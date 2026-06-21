@@ -1,0 +1,35 @@
+task_id: T04
+feature_ref: FEAT-PROCESO
+scenario_ref:
+  - Galería En Acción con 8 fotos del tatuador trabajando
+title: "Sección En Acción (Proceso)"
+objective: "Implementar la galería de 8 fotos del tatuador trabajando (proceso), mostrando al artista en acción durante sus sesiones de tatuaje."
+
+inputs:
+  - T03 (about completado)
+  - imagenes/Tatuador/tatuador6.png, tatuador7.png, tatuador8.png, tatuador9.png, tatuador10.png, tatuador11.png, tatuador12.png, tatuador13.jpeg
+  - architecture_document.md (estructura proceso)
+
+outputs:
+  - index.html (actualizar <section#proceso> con grid de 8 fotos)
+  - css/layout.css (proceso grid: 2col → 3col → 4col)
+
+acceptance_criteria:
+  - Sección #proceso existe con título "En Acción" en Bebas Neue
+  - Grid de 8 fotos mostrando al tatuador trabajando
+  - Grid responsivo: 2 columnas (mobile), 3 columnas (tablet), 4 columnas (desktop)
+  - Sin overlays ni tags sobre las imágenes (imágenes limpias)
+  - Imágenes con object-fit: cover para uniformidad
+  - Lazy loading nativo en todas las imágenes
+  - Alt text descriptivo en cada foto
+  - Espaciado uniforme entre imágenes (--space-md)
+  - Fotos con border-radius: 4px sutil
+
+architecture_constraints:
+  - Grid CSS con auto-fit o columnas explícitas por breakpoint
+  - Sin JavaScript para esta sección (solo HTML + CSS)
+
+design_constraints:
+  - Sin overlays, sin tags, sin efectos hover sobre las imágenes
+  - Aspect ratio consistente entre imágenes (usar object-fit: cover)
+  - Título sección: Bebas Neue, color #D4A017

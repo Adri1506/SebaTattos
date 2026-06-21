@@ -1,0 +1,1880 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SebaTatto — Wireframe de Diseño</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700&family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+           DESIGN TOKENS (Variables CSS)
+           ============================================================ */
+    :root {
+      /* Colores */
+      --color-bg-primary: #0D0D0D;
+      --color-bg-secondary: #1A1A1A;
+      --color-bg-tertiary: #252525;
+      --color-accent-primary: #D4A017;
+      --color-accent-secondary: #F0C040;
+      --color-accent-dim: #A07800;
+      --color-text-primary: #F5F5F5;
+      --color-text-secondary: #AAAAAA;
+      --color-text-muted: #666666;
+      --color-success: #2ECC71;
+      --color-error: #E74C3C;
+      --color-warning: #F39C12;
+      --color-overlay: rgba(0, 0, 0, 0.85);
+      --color-border: #333333;
+
+      /* Tipografía */
+      --font-heading: 'Bebas Neue', 'Oswald', sans-serif;
+      --font-body: 'Montserrat', 'Raleway', sans-serif;
+
+      /* Espaciado */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+      --space-3xl: 64px;
+      --space-4xl: 96px;
+
+      /* Bordes */
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-full: 50%;
+
+      /* Sombras */
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+      /* Transiciones */
+      --transition-fast: 150ms ease;
+      --transition-normal: 300ms ease;
+      --transition-slow: 500ms ease;
+
+      /* Layout */
+      --navbar-height: 60px;
+      --max-width: 1200px;
+    }
+
+    /* ============================================================
+           RESET
+           ============================================================ */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--navbar-height);
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-bg-primary);
+      color: var(--color-text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul { list-style: none; }
+
+    /* ============================================================
+           TIPOGRAFÍA
+           ============================================================ */
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; margin-bottom: var(--space-xl); }
+    h3 { font-size: 1.5rem; }
+    h4 { font-size: 1.25rem; }
+
+    .section-title {
+      text-align: center;
+      position: relative;
+      padding-bottom: var(--space-md);
+      margin-bottom: var(--space-2xl);
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: var(--color-accent-primary);
+      border-radius: 2px;
+    }
+
+    /* ============================================================
+           LAYOUT - SECCIONES
+           ============================================================ */
+    .section {
+      padding: var(--space-2xl) var(--space-md);
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .section-dark {
+      background-color: var(--color-bg-secondary);
+    }
+
+    /* ============================================================
+           NAVBAR
+           ============================================================ */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--navbar-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--space-md);
+      background: transparent;
+      transition: background var(--transition-normal), box-shadow var(--transition-normal);
+      z-index: 1000;
+    }
+    .navbar.scrolled {
+      background: var(--color-bg-secondary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .navbar-logo {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 0px;
+      color: var(--color-accent-primary);
+    }
+
+    .navbar-links {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: var(--navbar-height);
+      left: 0;
+      right: 0;
+      background: var(--color-bg-secondary);
+      padding: var(--space-md);
+      gap: var(--space-sm);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .navbar-links.open {
+      display: flex;
+    }
+    .navbar-links a {
+      padding: var(--space-sm) var(--space-md);
+      color: var(--color-text-secondary);
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color var(--transition-fast);
+      border-radius: var(--radius-sm);
+    }
+    .navbar-links a:hover,
+    .navbar-links a.active {
+      color: var(--color-accent-primary);
+      background: rgba(212, 160, 23, 0.1);
+    }
+
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--color-text-primary);
+      transition: transform var(--transition-fast), opacity var(--transition-fast);
+      border-radius: 1px;
+    }
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* ============================================================
+           HERO
+           ============================================================ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      padding: var(--space-xl);
+      padding-top: calc(var(--navbar-height) + var(--space-xl));
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('../../imagenes/Tatuador/banner.png') center center / cover no-repeat;
+      filter: brightness(0.55) saturate(1.2);
+      z-index: 0;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,
+        rgba(13,13,13,0.4) 0%,
+        rgba(13,13,13,0.7) 50%,
+        rgba(13,13,13,0.95) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+    }
+    .hero-logo {
+      width: 140px;
+      height: 140px;
+      border-radius: var(--radius-full);
+      object-fit: cover;
+      margin: 0 auto var(--space-lg);
+      border: 3px solid var(--color-accent-primary);
+      box-shadow: 0 0 30px rgba(212, 160, 23, 0.3);
+    }
+    .hero h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-sm);
+      letter-spacing: 0px;
+    }
+    .hero .subtitle {
+      font-size: 1.1rem;
+      color: var(--color-accent-primary);
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: var(--space-lg);
+    }
+    .hero p {
+      color: var(--color-text-secondary);
+      max-width: 500px;
+      margin: 0 auto var(--space-xl);
+      font-size: 0.95rem;
+    }
+
+    /* ============================================================
+           BOTONES
+           ============================================================ */
+    .btn {
+      display: inline-block;
+      padding: 14px 36px;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .btn-primary {
+      background: var(--color-accent-primary);
+      color: var(--color-bg-primary);
+    }
+    .btn-primary:hover {
+      background: var(--color-accent-secondary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(212, 160, 23, 0.4);
+    }
+    .btn-primary:active {
+      background: var(--color-accent-dim);
+      transform: translateY(0);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--color-accent-primary);
+      border: 2px solid var(--color-accent-primary);
+    }
+    .btn-secondary:hover {
+      background: var(--color-accent-primary);
+      color: var(--color-bg-primary);
+    }
+    .btn-whatsapp {
+      background: #25D366;
+      color: white;
+    }
+    .btn-whatsapp:hover {
+      background: #1DA851;
+      transform: translateY(-2px);
+    }
+    /* ============================================================
+           ABOUT
+           ============================================================ */
+    .about-grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xl);
+    }
+    .about-photos {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-sm);
+    }
+    .about-photos img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      transition: transform var(--transition-normal);
+    }
+    .about-photos img:hover {
+      transform: scale(1.03);
+    }
+    .about-photos img:first-child {
+      grid-column: span 2;
+      aspect-ratio: 16/9;
+    }
+    .about-text h3 {
+      color: var(--color-accent-primary);
+      margin-bottom: var(--space-md);
+    }
+    .about-text p {
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-md);
+      font-size: 0.95rem;
+    }
+
+    /* ============================================================
+            PROCESO / EN ACCIÓN GRID
+            ============================================================ */
+    .proceso-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-sm);
+    }
+    .proceso-item {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      cursor: pointer;
+    }
+    .proceso-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-normal);
+    }
+    .proceso-item:hover img {
+      transform: scale(1.06);
+    }
+
+    /* ============================================================
+            PORTFOLIO GRID
+            ============================================================ */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-sm);
+    }
+    .portfolio-item {
+      position: relative;
+      cursor: pointer;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      aspect-ratio: 1;
+    }
+    .portfolio-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-normal);
+    }
+    .portfolio-item:hover img {
+      transform: scale(1.08);
+    }
+    .portfolio-item .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity var(--transition-normal);
+    }
+    .portfolio-item:hover .overlay {
+      opacity: 1;
+    }
+    .portfolio-item .overlay span {
+      font-size: 2rem;
+      color: var(--color-accent-primary);
+    }
+
+    /* ============================================================
+           LIGHTBOX
+           ============================================================ */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--color-overlay);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-md);
+    }
+    .lightbox.open {
+      display: flex;
+    }
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 85vh;
+    }
+    .lightbox-content img {
+      max-width: 100%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: color var(--transition-fast);
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox-close:hover {
+      color: var(--color-accent-primary);
+    }
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--transition-fast);
+    }
+    .lightbox-nav:hover {
+      background: var(--color-accent-primary);
+      color: var(--color-bg-primary);
+    }
+    .lightbox-nav.prev { left: 10px; }
+    .lightbox-nav.next { right: 10px; }
+    .lightbox-counter {
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--color-text-secondary);
+      font-size: 0.85rem;
+    }
+
+    /* ============================================================
+           SERVICES
+           ============================================================ */
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+    .service-card {
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-xl);
+      text-align: center;
+      transition: all var(--transition-normal);
+    }
+    .service-card:hover {
+      border-color: var(--color-accent-primary);
+      box-shadow: 0 4px 20px rgba(212, 160, 23, 0.15);
+      transform: translateY(-4px);
+    }
+    .service-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: var(--space-md);
+    }
+    .service-card h3 {
+      color: var(--color-accent-primary);
+      margin-bottom: var(--space-sm);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .service-card p {
+      color: var(--color-text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+           CONTACT
+           ============================================================ */
+    .contact-grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xl);
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .form-group input,
+    .form-group textarea {
+      padding: 12px 16px;
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      color: var(--color-text-primary);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      transition: border var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--color-accent-primary);
+      box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.2);
+    }
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .contact-social {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      justify-content: center;
+    }
+    .contact-social .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+    }
+    .contact-direct {
+      text-align: center;
+      margin-top: var(--space-md);
+    }
+    .contact-direct p {
+      color: var(--color-text-muted);
+      font-size: 0.85rem;
+      margin-bottom: var(--space-xs);
+    }
+    .contact-direct a {
+      color: var(--color-accent-primary);
+      font-weight: 500;
+    }
+    .contact-direct a:hover {
+      color: var(--color-accent-secondary);
+    }
+
+    /* ============================================================
+           FOOTER
+           ============================================================ */
+    .footer {
+      background: var(--color-bg-secondary);
+      border-top: 1px solid var(--color-border);
+      padding: var(--space-xl) var(--space-md);
+      text-align: center;
+    }
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+    .footer-social a {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      background: var(--color-bg-tertiary);
+      color: var(--color-text-secondary);
+      border: 1px solid var(--color-border);
+      transition: all var(--transition-fast);
+    }
+    .footer-social a:hover {
+      background: var(--color-accent-primary);
+      color: var(--color-bg-primary);
+      border-color: var(--color-accent-primary);
+      transform: translateY(-2px);
+    }
+    .footer p {
+      color: var(--color-text-muted);
+      font-size: 0.8rem;
+    }
+    .footer .brand {
+      color: var(--color-accent-primary);
+      font-family: 'Dancing Script', cursive;
+      font-weight: 700;
+      letter-spacing: 0px;
+    }
+
+    /* ============================================================
+           RESPONSIVE - TABLET (768px+)
+           ============================================================ */
+    @media (min-width: 768px) {
+      :root { --navbar-height: 70px; }
+
+      .section { padding: var(--space-3xl) var(--space-xl); }
+
+      h1 { font-size: 3rem; }
+      h2 { font-size: 2.5rem; }
+      h3 { font-size: 1.75rem; }
+
+      .hero h1 { font-size: 4rem; letter-spacing: 8px; }
+      .hero-logo { width: 180px; height: 180px; }
+      .hero .subtitle { font-size: 1.3rem; }
+
+      .about-grid {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+      .about-photos {
+        flex: 1;
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .about-photos img:first-child {
+        grid-column: span 3;
+      }
+      .about-text {
+        flex: 1;
+        padding-left: var(--space-xl);
+      }
+
+      .portfolio-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-md);
+      }
+
+      .proceso-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-md);
+      }
+      .proceso-item {
+        aspect-ratio: 3/4;
+      }
+
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .contact-grid {
+        flex-direction: row;
+      }
+      .contact-form { flex: 1.5; }
+      .contact-social { flex: 1; }
+
+      .navbar-links {
+        display: flex;
+        flex-direction: row;
+        position: static;
+        background: none;
+        padding: 0;
+        border: none;
+        gap: var(--space-xs);
+      }
+      .hamburger { display: none; }
+    }
+
+    /* ============================================================
+           RESPONSIVE - DESKTOP (1024px+)
+           ============================================================ */
+    @media (min-width: 1024px) {
+      .section { padding: var(--space-4xl) var(--space-2xl); }
+
+      h1 { font-size: 4rem; }
+      h2 { font-size: 3rem; }
+
+      .hero h1 { font-size: 5rem; }
+      .hero-logo { width: 200px; height: 200px; }
+
+      .portfolio-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .proceso-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* ============================================================
+           RESPONSIVE - DESKTOP LARGE (1440px+)
+           ============================================================ */
+    @media (min-width: 1440px) {
+      .hero h1 { font-size: 6rem; }
+    }
+
+    /* ============================================================
+           ANIMACIONES
+           ============================================================ */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .hero-content {
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    /* ============================================================
+           BANNER DESTACADO (dentro de Sobre Mí)
+           ============================================================ */
+    .about-banner {
+      margin-top: var(--space-2xl);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+    .about-banner img {
+      width: 100%;
+      max-height: 450px;
+      object-fit: cover;
+      display: block;
+      transition: transform var(--transition-slow);
+    }
+    .about-banner:hover img {
+      transform: scale(1.02);
+    }
+    .about-banner-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: var(--space-xl) var(--space-lg);
+      background: linear-gradient(transparent, rgba(13,13,13,0.9));
+      text-align: center;
+    }
+    .about-banner-caption span {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      letter-spacing: 3px;
+      color: var(--color-accent-primary);
+      text-transform: uppercase;
+    }
+    @media (min-width: 768px) {
+      .about-banner img {
+        max-height: 500px;
+      }
+      .about-banner-caption span {
+        font-size: 1.5rem;
+      }
+    }
+
+    /* Spinner para estados de carga */
+    .spinner {
+      width: 24px;
+      height: 24px;
+      border: 3px solid var(--color-border);
+      border-top-color: var(--color-accent-primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      display: inline-block;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Placeholder text style for wireframe */
+    .placeholder-text {
+      color: var(--color-text-muted);
+      font-style: italic;
+    }
+
+    /* ============================================================
+       COTIZADOR / PRECIOS - Grid Layout
+       ============================================================ */
+    .precios-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+      align-items: stretch;
+    }
+
+    /* Each column as a card with consistent styling */
+    .precios-grid > * {
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      height: 100%;
+    }
+
+    .silhouette-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    .silhouette-container {
+      position: relative;
+      width: 100%;
+      max-width: 322px;
+      margin: 0 auto;
+    }
+
+    .silhouette-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    area[data-zone] {
+      cursor: pointer;
+    }
+
+    .zone-label {
+      text-align: center;
+      margin-top: var(--space-md);
+      font-size: 0.95rem;
+      color: var(--color-text-secondary);
+      min-height: 1.5em;
+    }
+
+    .zone-label strong {
+      color: var(--color-accent-primary);
+    }
+
+    .precios-controls {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+      height: 100%;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .control-group label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Slider */
+    .size-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      background: var(--color-border);
+      border-radius: 3px;
+      outline: none;
+      transition: background var(--transition-fast);
+    }
+
+    .size-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      background: var(--color-accent-primary);
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid var(--color-bg-primary);
+      box-shadow: 0 0 8px rgba(212, 160, 23, 0.4);
+      transition: transform var(--transition-fast);
+    }
+
+    .size-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+    }
+
+    .size-slider::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      background: var(--color-accent-primary);
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid var(--color-bg-primary);
+      box-shadow: 0 0 8px rgba(212, 160, 23, 0.4);
+    }
+
+    .size-value {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--color-accent-primary);
+      text-align: right;
+    }
+
+    .size-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    /* Toggle */
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .toggle {
+      position: relative;
+      display: inline-block;
+      width: 56px;
+      height: 30px;
+      flex-shrink: 0;
+    }
+
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background: var(--color-border);
+      border-radius: 30px;
+      transition: background var(--transition-fast);
+    }
+
+    .toggle-slider::before {
+      content: '';
+      position: absolute;
+      left: 3px;
+      bottom: 3px;
+      width: 24px;
+      height: 24px;
+      background: var(--color-text-primary);
+      border-radius: 50%;
+      transition: transform var(--transition-fast);
+    }
+
+    .toggle input:checked + .toggle-slider {
+      background: var(--color-accent-primary);
+    }
+
+    .toggle input:checked + .toggle-slider::before {
+      transform: translateX(26px);
+    }
+
+    .toggle-label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      transition: color var(--transition-fast);
+    }
+
+    .toggle-label.active {
+      color: var(--color-accent-primary);
+    }
+
+    /* Price Display */
+    .price-display {
+      text-align: center;
+      padding: var(--space-xl);
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      transition: border-color var(--transition-fast);
+    }
+
+    .price-display.has-zone {
+      border-color: var(--color-accent-primary);
+      box-shadow: 0 0 20px rgba(212, 160, 23, 0.1);
+    }
+
+    .price-amount {
+      font-family: var(--font-heading);
+      font-size: 3rem;
+      letter-spacing: 3px;
+      color: var(--color-accent-primary);
+      line-height: 1.1;
+    }
+
+    .price-label {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: var(--space-xs);
+    }
+
+    @keyframes pricePulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .price-amount.pulse {
+      animation: pricePulse 0.3s ease;
+    }
+
+    .disclaimer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      font-style: italic;
+      margin-top: var(--space-sm);
+    }
+
+    .precios-cta {
+      margin-top: var(--space-md);
+    }
+
+    @media (min-width: 768px) {
+      .precios-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: var(--space-lg);
+      }
+
+      .price-amount {
+        font-size: 3.5rem;
+      }
+    }
+
+    /* ============================================================
+       REFERENCE TABLE (Precios)
+       ============================================================ */
+    .reference-table {
+      width: 100%;
+    }
+    .reference-table h4 {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      color: var(--color-accent-primary);
+      margin-bottom: var(--space-md);
+      text-align: center;
+    }
+    .reference-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .reference-table td {
+      padding: 7px 4px;
+      font-size: 0.85rem;
+      color: var(--color-text-secondary);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .reference-table td:last-child {
+      text-align: right;
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+    .reference-table tr:last-child td {
+      border-bottom: none;
+    }
+    .reference-table .highlight-row td {
+      color: var(--color-accent-primary);
+    }
+    .reference-table .note {
+      margin-top: var(--space-sm);
+      padding-top: var(--space-sm);
+      border-top: 1px solid var(--color-border);
+      font-size: 0.8rem;
+      color: var(--color-warning);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================
+  NAVBAR
+  ========================================================== -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Navegación principal">
+    <a href="#hero" class="navbar-logo" aria-label="Ir al inicio">SebaTatto</a>
+
+    <button class="hamburger" id="hamburger" aria-label="Abrir menú de navegación" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul class="navbar-links" id="navLinks" role="menubar">
+      <li role="none"><a href="#hero" role="menuitem" class="active">Inicio</a></li>
+      <li role="none"><a href="#about" role="menuitem">Sobre Mí</a></li>
+      <li role="none"><a href="#proceso" role="menuitem">En Acción</a></li>
+      <li role="none"><a href="#portfolio" role="menuitem">Portafolio</a></li>
+      <li role="none"><a href="#services" role="menuitem">Servicios</a></li>
+      <li role="none"><a href="#precios" role="menuitem">Cotizá tu precio</a></li>
+      <li role="none"><a href="#contact" role="menuitem">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- ==========================================================
+  HERO
+  ========================================================== -->
+  <section id="hero" class="hero" aria-label="Presentación principal">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-content">
+      <img
+        src="../../imagenes/Tatuador/Logo.png"
+        alt="Logo de SebaTatto — Tatuajes a Domicilio"
+        class="hero-logo"
+        width="200"
+        height="200"
+        loading="eager"
+      >
+      <h1>SebaTatto</h1>
+      <p class="subtitle">Tatuajes a Domicilio</p>
+      <p>Arte sobre tu piel, en la comodidad de tu hogar. Diseños personalizados con calidad profesional y ambiente seguro.</p>
+      <a href="#contact" class="btn btn-primary" aria-label="Agendar una cita">
+        📅 Agenda tu Cita
+      </a>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+  SOBRE MÍ
+  ========================================================== -->
+  <section id="about" class="section section-dark" aria-label="Sobre el tatuador">
+    <h2 class="section-title">Sobre Mí</h2>
+    <div class="about-grid">
+      <div class="about-photos">
+        <img src="../../imagenes/Tatuador/tatuador.png" alt="SebaTatto — Foto principal del tatuador" loading="lazy">
+        <img src="../../imagenes/Tatuador/tatuador2.png" alt="SebaTatto — Foto de trabajo" loading="lazy">
+        <img src="../../imagenes/Tatuador/tatuador3.png" alt="SebaTatto — Foto del estudio" loading="lazy">
+        <img src="../../imagenes/Tatuador/tatuador4.png" alt="SebaTatto — Foto de proceso" loading="lazy">
+        <img src="../../imagenes/Tatuador/tatuador5.png" alt="SebaTatto — Foto de equipo" loading="lazy">
+        <img src="../../imagenes/Tatuador/tatuador6.png" alt="SebaTatto — Foto artística" loading="lazy">
+      </div>
+      <div class="about-text">
+        <h3>Sebastián — Artista del Tatuaje</h3>
+        <p>
+          Con más de 8 años de experiencia en la industria del tatuaje, me especializo en crear
+          diseños personalizados que reflejan la personalidad y estilo de cada cliente. Mi pasión
+          por el arte corporal me ha llevado a perfeccionar técnicas en realismo, tradicional,
+          geométrico y blackwork.
+        </p>
+        <p>
+          Ofrezco un servicio completo a domicilio, llevando todo el equipo profesional
+          directamente a tu hogar. Cada sesión está diseñada para ser una experiencia cómoda,
+          segura y memorable, con los más altos estándares de higiene y calidad.
+        </p>
+        <p>
+          <em>"Cada tatuaje cuenta una historia única. Mi trabajo es darle vida a la tuya."</em>
+        </p>
+      </div>
+    </div>
+
+    <!-- Banner destacado del estudio -->
+    <div class="about-banner">
+      <img
+        src="../../imagenes/Tatuador/banner.png"
+        alt="SebaTatto — Estudio de trabajo y gallery del tatuador"
+        loading="lazy"
+      >
+      <div class="about-banner-caption">
+        <span>Mi Estudio · Donde el Arte Cobra Vida</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+  EN ACCIÓN
+  ========================================================== -->
+  <section id="proceso" class="section" aria-label="Galería del tatuador trabajando">
+    <h2 class="section-title">En Acción</h2>
+    <p style="text-align:center; color: var(--color-text-muted); margin-bottom: var(--space-xl);">
+      El proceso detrás de cada obra — fotos del estudio y del trabajo en acción
+    </p>
+    <div class="proceso-grid">
+      <div class="proceso-item">
+        <img src="../../imagenes/Tatuador/tatuador7.png" alt="SebaTatto — Tatuando en sesión" loading="lazy">
+      </div>
+      <div class="proceso-item">
+        <img src="../../imagenes/Tatuador/tatuador8.png" alt="SebaTatto — Preparando el equipo" loading="lazy">
+      </div>
+      <div class="proceso-item">
+        <img src="../../imagenes/Tatuador/tatuador9.png" alt="SebaTatto — Detalle del trabajo" loading="lazy">
+      </div>
+      <div class="proceso-item">
+        <img src="../../imagenes/Tatuador/tatuador10.png" alt="SebaTatto — Momento creativo" loading="lazy">
+      </div>
+      <div class="proceso-item">
+        <img src="../../imagenes/Tatuador/tatuador11.png" alt="SebaTatto — Tatuaje en progreso" loading="lazy">
+      </div>
+      <div class="proceso-item">
+        <img src="../../imagenes/Tatuador/tatuador12.png" alt="SebaTatto — Resultado parcial" loading="lazy">
+      </div>
+      <div class="proceso-item">
+        <img src="../../imagenes/Tatuador/tatuador13.jpeg" alt="SebaTatto — Cliente satisfecho" loading="lazy">
+      </div>
+      <div class="proceso-item">
+        <img src="../../imagenes/Tatuador/tatuador6.png" alt="SebaTatto — Arte en acción" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+  PORTAFOLIO
+  ========================================================== -->
+  <section id="portfolio" class="section" aria-label="Portafolio de trabajos">
+    <h2 class="section-title">Portafolio</h2>
+    <p style="text-align:center; color: var(--color-text-muted); margin-bottom: var(--space-xl);">
+      Haz clic en cualquier trabajo para verlo en detalle
+    </p>
+    <div class="portfolio-grid" id="portfolioGrid">
+      <!-- Generado por JS -->
+    </div>
+  </section>
+
+  <!-- ==========================================================
+  LIGHTBOX
+  ========================================================== -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visor de imágenes">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar visor">✕</button>
+      <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Imagen anterior">‹</button>
+      <img id="lightboxImg" src="" alt="Imagen del portafolio">
+      <button class="lightbox-nav next" id="lightboxNext" aria-label="Imagen siguiente">›</button>
+      <div class="lightbox-counter" id="lightboxCounter"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================================
+  SERVICIOS
+  ========================================================== -->
+  <section id="services" class="section section-dark" aria-label="Servicios ofrecidos">
+    <h2 class="section-title">Servicios</h2>
+    <div class="services-grid">
+      <article class="service-card">
+        <div class="icon">🏠</div>
+        <h3>Tatuajes a Domicilio</h3>
+        <p>Llevo todo mi equipo profesional hasta tu casa. Sesiones cómodas, privadas y seguras, sin necesidad de desplazarte.</p>
+      </article>
+      <article class="service-card">
+        <div class="icon">✏️</div>
+        <h3>Diseños Personalizados</h3>
+        <p>Creamos juntos el diseño ideal para ti. Desde boceto inicial hasta el resultado final, cada detalle es único.</p>
+      </article>
+      <article class="service-card">
+        <div class="icon">🎨</div>
+        <h3>Restauración y Cobertura</h3>
+        <p>Renovamos tatuajes antiguos o cubrimos aquellos que ya no representan quien eres hoy. Resultados sorprendentes.</p>
+      </article>
+      <article class="service-card">
+        <div class="icon">💉</div>
+        <h3>Retoques y Cuidados</h3>
+        <p>Sesiones de retoque para mantener tus tatuajes impecables. Asesoramiento profesional en cuidados post-tatuaje.</p>
+      </article>
+      <article class="service-card">
+        <div class="icon">🤝</div>
+        <h3>Consultoría Gratuita</h3>
+        <p>Primera consulta sin cargo. Hablamos de tu idea, resuelvo tus dudas y planificamos juntos el proyecto.</p>
+      </article>
+      <article class="service-card">
+        <div class="icon">📍</div>
+        <h3>Asesoría de Ubicación</h3>
+        <p>Te ayudo a elegir la ubicación ideal para tu tatuaje según el diseño, tu anatomía y tu estilo de vida.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+  PRECIOS / COTIZADOR
+  ========================================================== -->
+  <section id="precios" class="section section-dark" aria-label="Cotizá tu tatuaje">
+    <h2 class="section-title">Cotizá tu tatuaje</h2>
+    <p style="text-align:center; color: var(--color-text-muted); margin-bottom: var(--space-xl);">
+      Seleccioná la zona, ajustá el tamaño y elegí el estilo para obtener un presupuesto estimado
+    </p>
+
+    <div class="precios-grid">
+      <!-- Tabla de referencia rápida -->
+      <div class="reference-table" aria-label="Tabla de referencia de precios">
+        <h4>📋 Referencia rápida</h4>
+        <table>
+          <tr><td>Mini</td><td>≤5 cm</td><td>$35.000</td></tr>
+          <tr><td>Pequeño</td><td>6–10 cm</td><td>$70.000</td></tr>
+          <tr><td>Mediano</td><td>11–15 cm</td><td>$120.000</td></tr>
+          <tr><td>Grande</td><td>16–25 cm</td><td>$200.000</td></tr>
+          <tr><td>Mega</td><td>&gt;25 cm</td><td>A cotizar</td></tr>
+        </table>
+        <div class="note">💡 +30% color sobre el valor base</div>
+      </div>
+
+      <!-- Silueta humana interactiva -->
+      <div class="silhouette-wrapper">
+        <div class="silhouette-container">
+           <img src="../../imagenes/silueta.png"
+               alt="Silueta humana para seleccionar zona del tatuaje"
+               usemap="#bodyMap"
+               class="silhouette-img"
+               width="322" height="726"
+               draggable="false">
+          <map name="bodyMap">
+            <area shape="rect" coords="106,4,215,100"   data-zone="cabeza"     data-label="Cabeza / Rostro"      href="javascript:void(0)" alt="Cabeza / Rostro">
+            <area shape="rect" coords="134,100,187,117" data-zone="cuello"     data-label="Cuello"               href="javascript:void(0)" alt="Cuello">
+            <area shape="rect" coords="122,117,175,261" data-zone="pecho"      data-label="Pecho"               href="javascript:void(0)" alt="Pecho">
+            <area shape="rect" coords="124,261,173,356" data-zone="vientre"    data-label="Vientre / Abdomen"    href="javascript:void(0)" alt="Vientre / Abdomen">
+            <area shape="rect" coords="14,122,75,343"   data-zone="brazo-izq"  data-label="Brazo izquierdo"      href="javascript:void(0)" alt="Brazo izquierdo">
+            <area shape="rect" coords="224,122,278,343" data-zone="brazo-der"  data-label="Brazo derecho"        href="javascript:void(0)" alt="Brazo derecho">
+            <area shape="rect" coords="4,343,61,369"    data-zone="mano-izq"   data-label="Mano izquierda"       href="javascript:void(0)" alt="Mano izquierda">
+            <area shape="rect" coords="228,343,289,369" data-zone="mano-der"   data-label="Mano derecha"         href="javascript:void(0)" alt="Mano derecha">
+            <area shape="rect" coords="81,356,146,612"  data-zone="pierna-izq" data-label="Pierna izquierda"     href="javascript:void(0)" alt="Pierna izquierda">
+            <area shape="rect" coords="155,356,220,612" data-zone="pierna-der" data-label="Pierna derecha"       href="javascript:void(0)" alt="Pierna derecha">
+            <area shape="rect" coords="77,612,146,712"  data-zone="pie-izq"    data-label="Pie izquierdo"        href="javascript:void(0)" alt="Pie izquierdo">
+            <area shape="rect" coords="155,612,224,712" data-zone="pie-der"    data-label="Pie derecho"          href="javascript:void(0)" alt="Pie derecho">
+          </map>
+        </div>
+        <p class="zone-label" id="zoneLabel">👆 Tocá una zona del cuerpo</p>
+      </div>
+
+      <!-- Controles del cotizador -->
+      <div class="precios-controls">
+        <!-- Zona seleccionada -->
+        <div class="control-group">
+          <label>Zona seleccionada</label>
+          <p style="font-size:1.1rem; font-weight:500; color: var(--color-text-primary); min-height:1.5em;" id="selectedZoneDisplay">
+            <span class="placeholder-text">— Ninguna</span>
+          </p>
+        </div>
+
+        <!-- Tamaño -->
+        <div class="control-group">
+          <div class="size-header">
+            <label for="sizeSlider">Tamaño del diseño</label>
+            <span class="size-value" id="sizeDisplay">10 cm</span>
+          </div>
+          <input type="range" id="sizeSlider" class="size-slider" min="1" max="30" value="10" step="1" aria-label="Tamaño del tatuaje en centímetros">
+        </div>
+
+        <!-- Estilo -->
+        <div class="control-group">
+          <label>Estilo</label>
+          <div class="toggle-container">
+            <span class="toggle-label active" id="bynLabel">ByN</span>
+            <label class="toggle">
+              <input type="checkbox" id="colorToggle" aria-label="Alternar entre blanco y negro o color">
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label" id="colorLabel">Color</span>
+          </div>
+        </div>
+
+        <!-- Precio -->
+        <div class="price-display" id="priceDisplay">
+          <div class="price-amount" id="priceAmount">$ —</div>
+          <div class="price-label">Precio estimado</div>
+        </div>
+
+        <p class="disclaimer">* Este es un valor referencial. Contáctame para un presupuesto exacto.</p>
+
+        <div class="precios-cta" style="text-align:center;">
+          <a href="#contact" class="btn btn-primary">Solicitar presupuesto exacto</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+  CONTACTO
+  ========================================================== -->
+  <section id="contact" class="section" aria-label="Contacto">
+    <h2 class="section-title">Contacto</h2>
+    <div class="contact-grid">
+      <form class="contact-form" id="contactForm" novalidate aria-label="Formulario de contacto">
+        <div class="form-group">
+          <label for="formName">Nombre completo</label>
+          <input type="text" id="formName" name="name" placeholder="Ej: Juan Pérez" required minlength="2" aria-required="true">
+        </div>
+        <div class="form-group">
+          <label for="formEmail">Correo electrónico</label>
+          <input type="email" id="formEmail" name="email" placeholder="ejemplo@correo.com" required aria-required="true">
+        </div>
+        <div class="form-group">
+          <label for="formPhone">Teléfono (opcional)</label>
+          <input type="tel" id="formPhone" name="phone" placeholder="+54 11 1234-5678">
+        </div>
+        <div class="form-group">
+          <label for="formMessage">Mensaje</label>
+          <textarea id="formMessage" name="message" placeholder="Contame sobre tu idea o consulta..." required minlength="10" aria-required="true"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="align-self: flex-start;">
+          Enviar Mensaje
+        </button>
+        <p id="formFeedback" class="placeholder-text" style="font-size:0.85rem; display:none;"></p>
+      </form>
+
+      <div class="contact-social">
+        <p style="color: var(--color-text-secondary); text-align:center; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:var(--space-sm);">
+          Contacto Directo
+        </p>
+        <a href="https://wa.me/56971930350" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" aria-label="Contactar por WhatsApp">
+          💬 WhatsApp
+        </a>
+        <div class="contact-direct">
+          <p>O escríbeme directamente:</p>
+          <a href="mailto:adriaticosama@gmail.com">adriaticosama@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+  FOOTER
+  ========================================================== -->
+  <footer class="footer" id="footer" role="contentinfo">
+    <div class="footer-social">
+      <a href="https://wa.me/56971930350" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">💬</a>
+      <a href="mailto:adriaticosama@gmail.com" aria-label="Correo electrónico">✉️</a>
+    </div>
+    <p>
+      © <span id="currentYear">2026</span> <span class="brand">SebaTatto</span> — Tatuajes a Domicilio.
+      Todos los derechos reservados.
+    </p>
+  </footer>
+
+  <!-- ==========================================================
+  JAVASCRIPT
+  ========================================================== -->
+  <script>
+    (function() {
+      'use strict';
+
+      // ============================================================
+      // DATOS (Model)
+      // ============================================================
+      const PORTFOLIO_IMAGES = [
+        { src: '../../imagenes/foto1.jpeg', alt: 'Tatuaje geométrico' },
+        { src: '../../imagenes/foto2.jpeg', alt: 'Tatuaje estilo tradicional' },
+        { src: '../../imagenes/foto4.jpeg', alt: 'Tatuaje de animales' },
+        { src: '../../imagenes/foto5.png', alt: 'Tatuaje blackwork' },
+        { src: '../../imagenes/foto6.png', alt: 'Tatuaje floral' },
+        { src: '../../imagenes/foto7.png', alt: 'Tatuaje de retrato' },
+        { src: '../../imagenes/foto8.png', alt: 'Tatuaje abstracto' },
+        { src: '../../imagenes/foto9.png', alt: 'Tatuaje de símbolos' },
+        { src: '../../imagenes/foto10.png', alt: 'Tatuaje de manga' },
+        { src: '../../imagenes/foto11.png', alt: 'Tatuaje minimalista' },
+        { src: '../../imagenes/foto12.png', alt: 'Tatuaje de letras' },
+        { src: '../../imagenes/foto13.png', alt: 'Tatuaje personalizado' },
+      ];
+
+      // ============================================================
+      // NAVBAR
+      // ============================================================
+      const navbar = document.getElementById('navbar');
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.getElementById('navLinks');
+
+      // Scroll effect
+      let lastScroll = 0;
+      window.addEventListener('scroll', function() {
+        const currentScroll = window.pageYOffset;
+        if (currentScroll > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+        lastScroll = currentScroll;
+
+        // Active link highlight
+        const sections = document.querySelectorAll('section[id]');
+        const links = navLinks.querySelectorAll('a');
+        let current = '';
+        sections.forEach(section => {
+          const top = section.offsetTop - 120;
+          if (currentScroll >= top) {
+            current = section.getAttribute('id');
+          }
+        });
+        links.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + current) {
+            link.classList.add('active');
+          }
+        });
+      }, { passive: true });
+
+      // Hamburger toggle
+      hamburger.addEventListener('click', function() {
+        const isOpen = navLinks.classList.toggle('open');
+        hamburger.classList.toggle('active');
+        hamburger.setAttribute('aria-expanded', isOpen);
+      });
+
+      // Close menu on link click (mobile)
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function() {
+          navLinks.classList.remove('open');
+          hamburger.classList.remove('active');
+          hamburger.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      // ============================================================
+      // PORTFOLIO GRID
+      // ============================================================
+      const grid = document.getElementById('portfolioGrid');
+
+      PORTFOLIO_IMAGES.forEach((img, index) => {
+        const item = document.createElement('div');
+        item.className = 'portfolio-item';
+        item.setAttribute('role', 'button');
+        item.setAttribute('tabindex', '0');
+        item.setAttribute('aria-label', 'Ver ' + img.alt);
+        item.dataset.index = index;
+        item.innerHTML = `
+          <img src="${img.src}" alt="${img.alt}" loading="lazy">
+          <div class="overlay"><span>🔍</span></div>
+        `;
+        item.addEventListener('click', function() { openLightbox(index); });
+        item.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openLightbox(index);
+          }
+        });
+        grid.appendChild(item);
+      });
+
+      // ============================================================
+      // LIGHTBOX
+      // ============================================================
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightboxImg');
+      const lightboxClose = document.getElementById('lightboxClose');
+      const lightboxPrev = document.getElementById('lightboxPrev');
+      const lightboxNext = document.getElementById('lightboxNext');
+      const lightboxCounter = document.getElementById('lightboxCounter');
+
+      let currentIndex = 0;
+
+      function openLightbox(index) {
+        currentIndex = index;
+        updateLightbox();
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      function updateLightbox() {
+        const img = PORTFOLIO_IMAGES[currentIndex];
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightboxCounter.textContent = `${currentIndex + 1} / ${PORTFOLIO_IMAGES.length}`;
+      }
+
+      function prevImage() {
+        currentIndex = (currentIndex - 1 + PORTFOLIO_IMAGES.length) % PORTFOLIO_IMAGES.length;
+        updateLightbox();
+      }
+
+      function nextImage() {
+        currentIndex = (currentIndex + 1) % PORTFOLIO_IMAGES.length;
+        updateLightbox();
+      }
+
+      lightboxClose.addEventListener('click', closeLightbox);
+      lightboxPrev.addEventListener('click', prevImage);
+      lightboxNext.addEventListener('click', nextImage);
+
+      // Click outside image to close
+      lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+      // Keyboard navigation
+      document.addEventListener('keydown', function(e) {
+        if (!lightbox.classList.contains('open')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') prevImage();
+        if (e.key === 'ArrowRight') nextImage();
+      });
+
+      // ============================================================
+      // FORMULARIO — En desarrollo conectar a Formspree
+      // Configurar en: https://formspree.io/forms/YOUR_FORM_ID
+      // Los datos deben llegar a: adriaticosama@gmail.com
+      // ============================================================
+      const form = document.getElementById('contactForm');
+      const formFeedback = document.getElementById('formFeedback');
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Simple validation simulation
+        const name = document.getElementById('formName').value.trim();
+        const email = document.getElementById('formEmail').value.trim();
+        const message = document.getElementById('formMessage').value.trim();
+
+        let errors = [];
+        if (name.length < 2) errors.push('El nombre debe tener al menos 2 caracteres.');
+        if (!email.includes('@') || !email.includes('.')) errors.push('Ingresa un email válido.');
+        if (message.length < 10) errors.push('El mensaje debe tener al menos 10 caracteres.');
+
+        if (errors.length > 0) {
+          formFeedback.style.display = 'block';
+          formFeedback.style.color = 'var(--color-error)';
+          formFeedback.textContent = '❌ ' + errors.join(' ');
+          return;
+        }
+
+        // Simulate success
+        formFeedback.style.display = 'block';
+        formFeedback.style.color = 'var(--color-success)';
+        formFeedback.textContent = '✅ Mensaje enviado con éxito. Te responderé a la brevedad.';
+        form.reset();
+      });
+
+      // ============================================================
+      // AÑO ACTUAL EN FOOTER
+      // ============================================================
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+      // ============================================================
+      // COTIZADOR — Lógica de precios
+      // ============================================================
+      const ZONE_FACTORS = {
+        'brazo': 1.0,
+        'pierna': 1.0,
+        'antebrazo': 1.0,
+        'muslo': 1.0,
+        'hombro': 1.2,
+        'pantorrilla': 1.2,
+        'espalda-baja': 1.2,
+        'manos': 1.5,
+        'pies': 1.5,
+        'pecho': 1.5,
+        'vientre': 1.5,
+        'costillas': 1.8,
+        'cuello': 2.0,
+        'rostro': 2.0
+      };
+
+      // Mapeo de data-zone del SVG → factor key
+      const ZONE_MAP = {
+        'cabeza': 'rostro',
+        'cuello': 'cuello',
+        'pecho': 'pecho',
+        'vientre': 'vientre',
+        'brazo-izq': 'brazo',
+        'brazo-der': 'brazo',
+        'mano-izq': 'manos',
+        'mano-der': 'manos',
+        'pierna-izq': 'pierna',
+        'pierna-der': 'pierna',
+        'pie-izq': 'pies',
+        'pie-der': 'pies'
+      };
+
+      // Nombres mostrables por data-zone
+      const ZONE_LABELS = {
+        'cabeza': 'Cabeza / Rostro',
+        'cuello': 'Cuello',
+        'pecho': 'Pecho',
+        'vientre': 'Vientre / Abdomen',
+        'brazo-izq': 'Brazo izquierdo',
+        'brazo-der': 'Brazo derecho',
+        'mano-izq': 'Mano izquierda',
+        'mano-der': 'Mano derecha',
+        'pierna-izq': 'Pierna izquierda',
+        'pierna-der': 'Pierna derecha',
+        'pie-izq': 'Pie izquierdo',
+        'pie-der': 'Pie derecho'
+      };
+
+      const zones = document.querySelectorAll('area[data-zone]');
+      const zoneLabel = document.getElementById('zoneLabel');
+      const selectedZoneDisplay = document.getElementById('selectedZoneDisplay');
+      const sizeSlider = document.getElementById('sizeSlider');
+      const sizeDisplay = document.getElementById('sizeDisplay');
+      const colorToggle = document.getElementById('colorToggle');
+      const bynLabel = document.getElementById('bynLabel');
+      const colorLabel = document.getElementById('colorLabel');
+      const priceAmount = document.getElementById('priceAmount');
+      const priceDisplay = document.getElementById('priceDisplay');
+
+      let selectedZone = null;
+
+      function calcularPrecio(tamanioCm, factorZona, color) {
+        let base;
+        if (tamanioCm <= 5) base = 35000;
+        else if (tamanioCm <= 10) base = 70000;
+        else if (tamanioCm <= 15) base = 120000;
+        else if (tamanioCm <= 25) base = 200000;
+        else base = 300000;
+
+        let precio = base * factorZona;
+        if (color === 'color') precio *= 1.3;
+
+        return Math.round(precio / 1000) * 1000;
+      }
+
+      function formatPrice(price) {
+        return '$' + price.toLocaleString('es-AR');
+      }
+
+      function updatePrice() {
+        if (!selectedZone) {
+          priceAmount.textContent = '$ —';
+          priceDisplay.classList.remove('has-zone');
+          return;
+        }
+
+        const zoneKey = selectedZone.dataset.zone;
+        const factorKey = ZONE_MAP[zoneKey];
+        const factor = ZONE_FACTORS[factorKey] || 1.0;
+        const size = parseInt(sizeSlider.value, 10);
+        const color = colorToggle.checked ? 'color' : 'byn';
+
+        const price = calcularPrecio(size, factor, color);
+        priceAmount.textContent = formatPrice(price);
+        priceDisplay.classList.add('has-zone');
+
+        // Pulse animation
+        priceAmount.classList.remove('pulse');
+        void priceAmount.offsetWidth;
+        priceAmount.classList.add('pulse');
+      }
+
+      function selectZone(element) {
+        if (element) {
+          selectedZone = element;
+          var zoneKey = element.dataset.zone;
+          var label = ZONE_LABELS[zoneKey] || element.dataset.label || zoneKey;
+          zoneLabel.innerHTML = '✅ Zona seleccionada: <strong>' + label + '</strong>';
+          selectedZoneDisplay.textContent = label;
+        } else {
+          selectedZone = null;
+          zoneLabel.innerHTML = '👆 Tocá una zona del cuerpo';
+          selectedZoneDisplay.innerHTML = '<span class="placeholder-text">— Ninguna</span>';
+        }
+
+        updatePrice();
+      }
+
+      // Zone click & keyboard handlers
+      zones.forEach(function(zone) {
+        zone.addEventListener('click', function(e) {
+          e.preventDefault();
+          selectZone(this);
+        });
+
+        zone.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            selectZone(this);
+          }
+        });
+      });
+
+      // Slider
+      sizeSlider.addEventListener('input', function() {
+        sizeDisplay.textContent = this.value + ' cm';
+        updatePrice();
+      });
+
+      // Color toggle
+      colorToggle.addEventListener('change', function() {
+        if (this.checked) {
+          bynLabel.classList.remove('active');
+          colorLabel.classList.add('active');
+        } else {
+          bynLabel.classList.add('active');
+          colorLabel.classList.remove('active');
+        }
+        updatePrice();
+      });
+
+    })();
+  </script>
+</body>
+</html>

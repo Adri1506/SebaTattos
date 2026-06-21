@@ -1,0 +1,297 @@
+# Design Summary — SebaTatto
+# Generado por: Designer Agent
+# Fecha: 2026-06-21
+# ready_for_next: true
+
+screens:
+  - id: screen_hero
+    name: Hero / Banner Principal
+    flow_ref: flow_01
+    components_used:
+      - comp_hero_section
+    states: ["default", "loading"]
+
+  - id: screen_about
+    name: Sobre Mí
+    flow_ref: flow_01
+    components_used:
+      - comp_about_section
+    states: ["default"]
+
+  - id: screen_portfolio
+    name: Portafolio / Galería
+    flow_ref: [flow_01, flow_03]
+    components_used:
+      - comp_portfolio_section
+      - comp_card_portfolio
+      - comp_lightbox
+    states: ["default", "lightbox_open", "lightbox_loading"]
+
+  - id: screen_services
+    name: Servicios
+    flow_ref: flow_02
+    components_used:
+      - comp_services_section
+      - comp_card_service
+    states: ["default"]
+
+  - id: screen_contact
+    name: Contacto
+    flow_ref: flow_02
+    components_used:
+      - comp_contact_section
+      - comp_form_group
+      - comp_input_text
+      - comp_textarea
+      - comp_btn_primary
+      - comp_social_link
+    states: ["default", "loading", "success", "error", "validation_error"]
+
+  - id: screen_footer
+    name: Footer
+    flow_ref: flow_02
+    components_used:
+      - comp_footer_section
+    states: ["default"]
+
+components:
+  - id: comp_btn_primary
+    name: Botón Primario
+    type: botón
+    states: ["default", "hover", "active", "focus", "disabled"]
+    used_in_screens: [screen_hero, screen_contact]
+
+  - id: comp_btn_secondary
+    name: Botón Secundario
+    type: botón
+    states: ["default", "hover", "active", "focus", "disabled"]
+    used_in_screens: [screen_hero]
+
+  - id: comp_input_text
+    name: Input de Texto
+    type: input
+    states: ["default", "focus", "error", "disabled"]
+    used_in_screens: [screen_contact]
+
+  - id: comp_textarea
+    name: Área de Texto
+    type: textarea
+    states: ["default", "focus", "error"]
+    used_in_screens: [screen_contact]
+
+  - id: comp_heading
+    name: Encabezado
+    type: texto
+    states: ["default"]
+    used_in_screens: [screen_hero, screen_about, screen_portfolio, screen_services, screen_contact]
+
+  - id: comp_icon
+    name: Icono SVG
+    type: icono
+    states: ["default"]
+    used_in_screens: [screen_services, screen_contact, screen_footer]
+
+  - id: comp_navbar
+    name: Barra de navegación
+    type: nav
+    states: ["default", "scrolled", "mobile_open", "active"]
+    used_in_screens: [screen_hero, screen_about, screen_portfolio, screen_services, screen_contact, screen_footer]
+
+  - id: comp_card_service
+    name: Card de Servicio
+    type: card
+    states: ["default", "hover"]
+    used_in_screens: [screen_services]
+
+  - id: comp_card_portfolio
+    name: Card de Portfolio
+    type: card
+    states: ["default", "hover"]
+    used_in_screens: [screen_portfolio]
+
+  - id: comp_lightbox
+    name: Lightbox Modal
+    type: modal
+    states: ["open", "closed", "prev", "next", "loading"]
+    used_in_screens: [screen_portfolio]
+
+  - id: comp_form_group
+    name: Grupo de formulario
+    type: form
+    states: ["default", "error", "success"]
+    used_in_screens: [screen_contact]
+
+  - id: comp_social_link
+    name: Enlace a Red Social
+    type: link
+    states: ["default", "hover"]
+    used_in_screens: [screen_contact, screen_footer]
+
+  - id: comp_hero_section
+    name: Sección Hero
+    type: sección
+    states: ["default", "loading"]
+    used_in_screens: [screen_hero]
+
+  - id: comp_about_section
+    name: Sección Sobre Mí
+    type: sección
+    states: ["default"]
+    used_in_screens: [screen_about]
+
+  - id: comp_portfolio_section
+    name: Sección Portafolio
+    type: sección
+    states: ["default"]
+    used_in_screens: [screen_portfolio]
+
+  - id: comp_services_section
+    name: Sección Servicios
+    type: sección
+    states: ["default"]
+    used_in_screens: [screen_services]
+
+  - id: comp_contact_section
+    name: Sección Contacto
+    type: sección
+    states: ["default", "loading", "success", "error"]
+    used_in_screens: [screen_contact]
+
+  - id: comp_footer_section
+    name: Sección Footer
+    type: sección
+    states: ["default"]
+    used_in_screens: [screen_footer]
+
+design_tokens:
+  colors:
+    primary: "#0D0D0D"
+    secondary: "#1A1A1A"
+    tertiary: "#252525"
+    accent: "#D4A017"
+    accent_light: "#F0C040"
+    accent_dark: "#A07800"
+    text_primary: "#F5F5F5"
+    text_secondary: "#AAAAAA"
+    text_muted: "#666666"
+    success: "#2ECC71"
+    error: "#E74C3C"
+    warning: "#F39C12"
+    border: "#333333"
+    overlay: "rgba(0,0,0,0.85)"
+  typography:
+    heading_family: "'Bebas Neue', 'Oswald', sans-serif"
+    body_family: "'Montserrat', 'Raleway', sans-serif"
+    scale:
+      h1_mobile: "2.5rem"
+      h1_desktop: "4rem"
+      h2_mobile: "2rem"
+      h2_desktop: "3rem"
+      body: "1rem"
+  spacing:
+    base: "4px"
+    scale: ["4px", "8px", "16px", "24px", "32px", "48px", "64px", "96px"]
+
+ui_library:
+  name: "Ninguna (CSS vanilla con variables nativas)"
+  justification: "Stack definido por arquitectura sin frameworks. Componentes construidos manualmente siguiendo Atomic Design con design tokens CSS."
+
+user_flows:
+  - id: flow_01
+    name: Llegada y exploración del portafolio
+    steps:
+      - "Llega al sitio"
+      - "Ve HERO con banner + CTA"
+      - "Scrollea o navega a #about"
+      - "Lee biografía, ve fotos del tatuador"
+      - "Navega a #portfolio"
+      - "Explora grid de trabajos"
+      - "Click en imagen → Lightbox se abre"
+      - "Navega entre fotos"
+      - "Cierra lightbox"
+    screens_involved: [screen_hero, screen_about, screen_portfolio]
+
+  - id: flow_02
+    name: Consulta de servicios y contacto
+    steps:
+      - "Llega al sitio"
+      - "Navega a #services"
+      - "Lee tarjetas de servicios"
+      - "Scrollea a #contact"
+      - "Opción A: Completa formulario y envía"
+      - "Opción B: Click en WhatsApp"
+      - "Opción C: Click en Instagram"
+    screens_involved: [screen_hero, screen_services, screen_contact, screen_footer]
+
+  - id: flow_03
+    name: Navegación móvil completa
+    steps:
+      - "Usuario en mobile"
+      - "Abre menú hamburguesa"
+      - "Ve opciones de navegación"
+      - "Selecciona sección"
+      - "Menú se cierra, scroll suave"
+      - "Navbar sticky muestra sección activa"
+    screens_involved: [screen_hero, screen_about, screen_portfolio, screen_services, screen_contact]
+
+conocimiento_aplicado:
+  patrones_ui:
+    - "Landing Page — Hero Section"
+    - "Landing Page — Features Grid (servicios)"
+    - "Landing Page — CTA"
+    - "Landing Page — Footer"
+    - "Navigation — Sticky Navbar + Hamburger Menu (mobile)"
+    - "Entrada Datos — Formulario Simple (1-5 campos)"
+    - "Visualización — Cards (servicios)"
+    - "Visualización — Grids (portfolio)"
+    - "Feedback Estados — Loading State"
+    - "Feedback Estados — Success State"
+    - "Feedback Estados — Error State"
+  sistema_diseno: "Atomic Design (Átomos → Moléculas → Organismos) con Design Tokens en CSS variables"
+  accesibilidad_wcag: true
+  responsive_breakpoints:
+    - "320px (mobile small)"
+    - "375px (mobile medium)"
+    - "768px (tablet)"
+    - "1024px (desktop)"
+    - "1440px+ (desktop large)"
+  principios_visuales:
+    - "Jerarquía Visual — headings bold grandes en mayúscula"
+    - "Ley de Fitts — CTAs grandes, touch targets ≥44px"
+    - "Ley de Hick — 5 items de navegación, 6 cards de servicios"
+    - "Proximidad — elementos agrupados por sección"
+    - "Contraste — dorado sobre negro para acentos críticos"
+    - "Espacio en Blanco — padding generoso entre secciones"
+    - "Consistencia — design tokens reutilizables"
+    - "Affordance — hover states en cards y botones"
+  componentes_por_tipo:
+    botones: [comp_btn_primary, comp_btn_secondary]
+    inputs: [comp_input_text, comp_textarea]
+    cards: [comp_card_service, comp_card_portfolio]
+    navegacion: [comp_navbar]
+    modales: [comp_lightbox]
+    formularios: [comp_form_group]
+    secciones: [comp_hero_section, comp_about_section, comp_portfolio_section, comp_services_section, comp_contact_section, comp_footer_section]
+
+design_complexity:
+  screens_count: 6
+  component_count: 21
+  flow_count: 3
+  complexity: low
+
+assumptions:
+  - "A01: El dorado (#D4A017) es aceptable como color de acento principal"
+  - "A02: Las imágenes existentes tienen calidad suficiente para verse en grid"
+  - "A03: Bebas Neue + Montserrat están disponibles en Google Fonts"
+  - "A04: El banner se usará como background-image del hero (no como img tag)"
+  - "A05: Se implementará un solo CTA principal ('Agenda tu cita')"
+
+constraints:
+  - "C01: Sin backend — formulario procesado por Formspree/EmailJS"
+  - "C02: Sin frameworks — CSS vanilla con variables nativas"
+  - "C03: Sin build tools — HTML, CSS y JS directos"
+  - "C04: Mobile-first — estilos base para mobile, media queries para desktop"
+  - "C05: Assets existentes fijos — no mover ni renombrar imágenes"
+  - "C06: Google Fonts: máximo 2 familias"
+
+ready_for_next: true

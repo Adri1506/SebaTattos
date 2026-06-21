@@ -1,0 +1,51 @@
+task_id: T08
+feature_ref: FEAT-CONTACT
+scenario_ref:
+  - Formulario de contacto con validación y envío a Formspree
+  - Botón WhatsApp directo y enlace email
+title: "Sección Contacto + Formulario"
+objective: "Implementar la sección de contacto con formulario (nombre, email, teléfono opcional, mensaje), validación en cliente, integración con Formspree, botón WhatsApp directo y enlace de email."
+
+inputs:
+  - T07 (calculadora completada)
+  - architecture_document.md (contact specs, Formspree)
+  - design_document.md (form states, layout)
+
+outputs:
+  - index.html (actualizar <section#contact> con formulario y contacto directo)
+  - css/components.css (form styles, input states, contact buttons)
+  - js/contact.js (validación de formulario, envío Formspree, feedback visual)
+
+acceptance_criteria:
+  - Sección #contact existe con título "Contacto" en Bebas Neue
+  - Layout 2 columnas desktop: (1) formulario | (2) contacto directo (WhatsApp + email)
+  - En mobile: stacked
+  - Formulario con campos: nombre (required), email (required), teléfono (optional), mensaje (required)
+  - Validación en cliente: nombre ≥2 caracteres, email formato válido, mensaje ≥10 caracteres
+  - Estados visuales en inputs: default, focus (borde dorado + glow), error (borde rojo), success (borde verde)
+  - Mensajes de error inline debajo de cada campo inválido
+  - Botón submit: estados default, hover, loading (spinner + "Enviando..."), success (verde + check), error (rojo)
+  - Integración con Formspree: formulario POST a endpoint de Formspree
+  - Feedback al usuario: mensaje de éxito/error después del envío
+  - Botón WhatsApp: enlace wa.me/56971930350 con mensaje predefinido
+  - Email directo: mailto:adriaticosama@gmail.com
+  - Fallback visible: si Formspree falla, mostrar email directo como alternativa
+  - No hay errores de consola JS
+
+architecture_constraints:
+  - contact.js independiente, modular
+  - Formulario usa action POST a Formspree endpoint
+  - Validación con Constraint Validation API o JS vanilla
+  - No almacenar datos localmente (sin localStorage)
+  - Botón WhatsApp: `<a href="https://wa.me/56971930350?text=..." target="_blank" rel="noopener noreferrer">`
+
+design_constraints:
+  - Inputs: bg #1A1A1A, border 1px solid #333, color #F5F5F5, border-radius 4px
+  - Input focus: border-color #D4A017, box-shadow glow dorado
+  - Input error: border-color #E74C3C
+  - Input success: border-color #2ECC71
+  - Labels: Montserrat, color #AAAAAA, margin-bottom 4px
+  - Botón submit: mismo estilo que CTA primary (bg #D4A017, color #0D0D0D)
+  - Botón WhatsApp: bg #25D366 (verde WhatsApp), color white
+  - Botón email: bg #1A1A1A, border 1px solid #D4A017, color #D4A017
+  - Touch targets >= 44px en todos los elementos interactivos

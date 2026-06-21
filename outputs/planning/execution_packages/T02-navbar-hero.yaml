@@ -1,0 +1,50 @@
+task_id: T02
+feature_ref: FEAT-NAV, FEAT-HERO
+scenario_ref:
+  - Navegación sticky con hamburger menu en mobile
+  - Hero con banner.png de fondo, logo redondo, título, subtítulo y CTA
+title: "Navbar Responsive + Hero Section"
+objective: "Implementar la barra de navegación sticky con 7 anchor links y menú hamburguesa para mobile, junto con la sección Hero principal que incluye banner de fondo, logo circular, título Dancing Script, subtítulo y botón CTA."
+
+inputs:
+  - T01 (estructura base HTML + CSS)
+  - imagenes/Tatuador/banner.png (fondo hero)
+  - imagenes/Tatuador/Logo.png (logo redondo)
+  - architecture_document.md (secciones, navegación, hero specs)
+  - design_document.md (hero layout, navbar specs, tipografía)
+
+outputs:
+  - index.html (actualizar <header> con navbar y <section#hero>)
+  - css/components.css (navbar styles, hero styles, botones, hamburger menu)
+  - js/main.js (scroll suave, menú hamburguesa toggle, active link detection, navbar scroll effect)
+
+acceptance_criteria:
+  - Navbar sticky con fondo transparente en hero que se vuelve sólido (#1A1A1A) al scrollear
+  - Navbar contiene 7 anchor links: Inicio, Sobre Mí, En Acción, Portafolio, Servicios, Cotizá tu Precio, Contacto
+  - Navbar muestra "SebaTatto" en Dancing Script a la izquierda (marca)
+  - Menú hamburguesa visible solo en mobile (<768px), toggle abre/cierra menú vertical
+  - En desktop (>=1024px) los links se muestran horizontales
+  - Hero ocupa full viewport height (100vh)
+  - Banner.png como background con brightness(0.55) + gradient overlay negro
+  - Logo.png circular 140px con borde dorado (#D4A017) de 3px y glow sutil
+  - Título "SebaTatto" en Dancing Script (tamaño mobile ~2.5rem, desktop ~4rem)
+  - Subtítulo "Tatuajes a Domicilio" en Montserrat
+  - Botón CTA "Agenda tu Cita" con estilo primary (bg dorado, hover más claro)
+  - Scroll suave al clickear cualquier anchor link
+  - Link de sección actual se marca como activo en navbar durante scroll
+  - Touch targets >= 44px en todos los elementos de navegación
+  - No hay errores de consola JS
+
+architecture_constraints:
+  - main.js con funciones modulares, no clases
+  - Sin librerías externas para smooth scroll (usar scrollIntoView con behavior smooth)
+  - Intersection Observer para detectar sección activa en navbar
+  - CSS transitions para hamburger menu (300ms ease)
+
+design_constraints:
+  - Color navbar texto: #F5F5F5 (default), #D4A017 (hover y active)
+  - Hero overlay: rgba(0,0,0,0.55) con gradient
+  - Logo: 140px diámetro, border-radius 50%, border 3px solid #D4A017, box-shadow glow dorado
+  - Botón CTA: bg #D4A017, color #0D0D0D, hover bg #F0C040, border-radius 4px, padding 12px 32px
+  - Hamburger icon: 3 líneas blancas, animación a X al abrir
+  - Bebas Neue para nav links en desktop

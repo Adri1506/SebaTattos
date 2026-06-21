@@ -1,0 +1,138 @@
+# Architecture Summary — SebaTatto
+# Generado por: Architect Agent
+# Fecha: 2026-06-21
+# Versión: 1.1 (actualizado post-diseño)
+# ready_for_next: true
+
+pattern: "MVC adaptado a contexto estático (Static MVC)"
+
+architecture_type: "Single-page multi-section landing page (Static Site)"
+
+stack:
+  language: "JavaScript (ES6+)"
+  framework: "Ninguno (vanilla)"
+  css_approach: "CSS3 con variables nativas, sin preprocesadores"
+  database: "Ninguna (sin backend)"
+  tools:
+    - "Formspree o EmailJS (procesamiento de formulario)"
+    - "Google Fonts (3 familias: Bebas Neue, Montserrat, Dancing Script)"
+    - "Squoosh CLI (optimización de imágenes)"
+    - "GitHub Pages o Netlify (hosting)"
+    - "Emoji/Unicode nativos (iconos)"
+
+modules:
+  - "Hero (#hero) — Banner principal con CTA, logo redondo, título Dancing Script"
+  - "Sobre mí (#about) — Collage 6 fotos + biografía + banner destacado"
+  - "En Acción (#proceso) — Galería 8 fotos del tatuador trabajando"
+  - "Portafolio (#portfolio) — Galería 12 trabajos con lightbox modal"
+  - "Servicios (#services) — 6 tarjetas de servicios ofrecidos"
+  - "Calculadora (#precios) — Silueta interactiva (imagemap 12 zonas) + slider + toggle color + precio en vivo"
+  - "Contacto (#contact) — Formulario + WhatsApp + Email"
+  - "Footer (#footer) — Enlaces WhatsApp/Email, copyright"
+
+assumptions:
+  - "A01: El cliente tiene o adquirirá un dominio personalizado"
+  - "A02: Las imágenes existentes tienen resolución suficiente"
+  - "A03: No se requiere almacenamiento persistente del formulario"
+  - "A04: El tatuador tiene WhatsApp activo (+56971930350) y email"
+  - "A05: No se requiere multi-idioma"
+  - "A06: La silueta (silueta.png 322×726) tiene coordenadas precisas para las 12 zonas"
+  - "A07: El pricing será validado antes del deploy"
+
+constraints:
+  - "C01: Sin backend — todo debe ser servible como archivos estáticos"
+  - "C02: Sin base de datos — sin persistencia server-side"
+  - "C03: Sin frameworks JS pesados — solo vanilla JS ES6+"
+  - "C04: Responsive obligatorio — mobile-first"
+  - "C05: Assets existentes fijos — no mover/renombrar sin coordinación"
+
+risks:
+  - "R01: Imágenes de portfolio pesadas (>1MB) — mitigación: lazy loading + WebP + srcset"
+  - "R02: Formulario depende de servicio externo (Formspree/EmailJS) — mitigación: fallback con email directo"
+  - "R03: Diseño responsive en dispositivos <320px — mitigación: testing multi-viewport"
+  - "R04: Logo (1254×1254) pesado para hero — mitigación: redimensionar y comprimir"
+  - "R05: Coordenadas de imagemap pueden requerir recalibración — mitigación: verificar en producción"
+
+technology_validation:
+  validated_with_snapshot: false
+  selected_versions:
+    html: "HTML5 (W3C Standard)"
+    css: "CSS3 (W3C Standard)"
+    javascript: "ES6+ (ECMAScript 2020+)"
+    form_service: "Formspree o EmailJS (última versión disponible)"
+  alternatives_found:
+    - "Bootstrap/Tailwind → Descartado por peso innecesario y restricción de frameworks"
+    - "React/Vue → Descartado por restricción de frameworks pesados"
+    - "CMS (WordPress, Strapi) → Descartado por requerir backend/BD"
+  obsolete_technologies_detected: []
+
+discarded_alternatives:
+  - architecture: "Monolítica"
+    reason: "Requiere backend; sobreingeniería para sitio estático"
+  - architecture: "Clean Architecture"
+    reason: "Excesiva abstracción; requiere equipo de 2+ personas; landing page no lo justifica"
+  - architecture: "Hexagonal"
+    reason: "Excesiva para sitio sin lógica de dominio compleja"
+  - architecture: "Microservicios"
+    reason: "Completamente inapropiado para sitio estático de 1 página"
+  - architecture: "MVVM"
+    reason: "Orientado a apps móviles/escritorio con binding reactivo; innecesario aquí"
+  - architecture: "ECS"
+    reason: "Arquitectura de videojuegos, sin relación con el dominio"
+
+key_decisions:
+  - decision: "Página única multi-sección vs multi-página"
+    justification: "Mejor experiencia de navegación continua, más fácil de mantener, ideal para storytelling visual"
+    impact: "Toda la SEO se concentra en una sola URL"
+  - decision: "Sin preprocesadores CSS ni build tools"
+    justification: "Reduce complejidad del pipeline, cero dependencias de desarrollo"
+    impact: "Flujo de trabajo simple: abrir HTML en navegador"
+  - decision: "JS vanilla modular por archivo"
+    justification: "Mantiene responsabilidades separadas sin bundler"
+    impact: "4 archivos JS con funciones claras (main, gallery, contact, calculator)"
+  - decision: "Lazy loading nativo para imágenes"
+    justification: "Mejora tiempo de carga inicial sin librerías"
+    impact: "Carga bajo demanda del portfolio"
+  - decision: "Mobile-first CSS"
+    justification: "Tráfico móvil dominante para búsquedas locales"
+    impact: "Estilos base = mobile; capas para pantallas grandes"
+  - decision: "Servicio externo para formulario de contacto"
+    justification: "Única manera de enviar emails sin backend"
+    impact: "Dependencia externa leve con fallback"
+  - decision: "Silueta PNG + HTML imagemap"
+    justification: "El cliente solicitó reemplazar SVG por la imagen real; HTML imagemap es compatible nativo"
+    impact: "Coordenadas deben calibrarse; 12 zonas definidas con data-zone y data-label"
+  - decision: "Tres familias tipográficas (Bebas Neue + Montserrat + Dancing Script)"
+    justification: "Dancing Script aporta identidad manuscrita elegante para la marca"
+    impact: "3 familias Google Fonts (vs 2 originales); mitigado con preconnect/preload"
+  - decision: "Sin Instagram — solo WhatsApp + Email"
+    justification: "El cliente no desea promocionar Instagram en el sitio"
+    impact: "Menos elementos en contacto y footer"
+
+image_strategy:
+  formats: ["WebP (principal)", "JPEG/PNG (fallback)"]
+  optimization: "Squoosh CLI — calidad 80%"
+  loading:
+    eager: ["hero banner", "logo"]
+    lazy: ["portfolio", "fotos del tatuador"]
+  responsive: "srcset para resoluciones múltiples"
+
+seo:
+  meta_tags: true
+  open_graph: true
+  json_ld: true
+  semantic_html: true
+  sitemap: "recomendado"
+  robots: "recomendado"
+
+folder_structure:
+  max_depth: 3
+  root:
+    - "index.html"
+    - "css/"
+    - "js/"
+    - "imagenes/"
+    - "assets/"
+    - "outputs/"
+
+ready_for_next: true

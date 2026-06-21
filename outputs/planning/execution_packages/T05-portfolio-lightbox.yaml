@@ -1,0 +1,49 @@
+task_id: T05
+feature_ref: FEAT-PORTFOLIO, FEAT-LIGHTBOX
+scenario_ref:
+  - Grid de portafolio con 12 imágenes
+  - Lightbox modal con navegación anterior/siguiente, teclado y contador
+title: "Portafolio Grid + Lightbox Modal"
+objective: "Implementar la cuadrícula de portafolio con 12 imágenes de trabajos realizados y un lightbox modal interactivo con navegación entre imágenes, control por teclado y contador."
+
+inputs:
+  - T04 (proceso completado)
+  - imagenes/foto1.jpeg, foto2.jpeg, foto4.jpeg, foto5.png, foto6.png, foto7.png, foto8.png, foto9.png, foto10.png, foto11.png, foto12.png, foto13.png
+  - architecture_document.md (portfolio specs, lightbox specs)
+  - design_document.md (lightbox behavior, portfolio grid)
+
+outputs:
+  - index.html (actualizar <section#portfolio> con grid 12 imágenes + estructura lightbox)
+  - css/components.css (portfolio grid, lightbox modal, overlay, navigation buttons)
+  - js/gallery.js (lightbox lógica: open, close, prev, next, keyboard events, counter)
+
+acceptance_criteria:
+  - Grid de 12 imágenes del portfolio en 2 columnas (mobile), 3 (tablet), 4 (desktop)
+  - Al hacer click en imagen, lightbox modal se abre con overlay oscuro (rgba 0,0,0,0.85)
+  - Lightbox muestra imagen ampliada centrada con border-radius
+  - Botones de navegación: anterior (◀) y siguiente (▶) visibles a los lados
+  - Contador en lightbox: "3 / 12"
+  - Botón de cerrar (✕) en esquina superior derecha
+  - Navegación por teclado: ← anterior, → siguiente, ESC cerrar
+  - Click fuera de la imagen cierra el lightbox
+  - Transición suave (fade 300ms) al abrir/cerrar lightbox
+  - Precarga de imagen siguiente/anterior para navegación fluida
+  - Imágenes del portfolio con lazy loading
+  - Alt text descriptivo en cada imagen del portfolio
+  - Hover en thumbnails: escala 1.05 + overlay sutil con icono lupa
+  - No hay errores de consola JS
+
+architecture_constraints:
+  - gallery.js independiente, sin dependencias de main.js
+  - Datos del portfolio como array de objetos en gallery.js (src, alt, id)
+  - Lightbox markup en HTML (no generado dinámicamente desde JS) o generado con createElement
+  - Event listeners con addEventListener, sin inline JS
+  - Keyboard events: keydown en document
+
+design_constraints:
+  - Overlay lightbox: rgba(0,0,0,0.85)
+  - Imagen lightbox: max-width 90vw, max-height 85vh, border-radius 8px
+  - Botones navegación: estilo minimalista, semi-transparentes, hover más visibles
+  - Contador: Montserrat, color #AAAAAA, posicionado abajo
+  - Botón cerrar: color #F5F5F5, hover #D4A017
+  - Thumbnail hover: scale(1.05) + box-shadow, overlay con pseudo-elemento

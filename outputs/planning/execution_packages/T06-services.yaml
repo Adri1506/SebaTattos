@@ -1,0 +1,39 @@
+task_id: T06
+feature_ref: FEAT-SERVICES
+scenario_ref:
+  - Sección de servicios con 6 tarjetas descriptivas
+title: "Sección Servicios"
+objective: "Implementar la sección de servicios con 6 tarjetas (cards) que describen los servicios ofrecidos por SebaTatto, en un grid responsivo."
+
+inputs:
+  - T05 (portfolio + lightbox completados)
+  - architecture_document.md (servicios specs)
+
+outputs:
+  - index.html (actualizar <section#services> con 6 service cards)
+  - css/components.css (service card styles, hover effects)
+
+acceptance_criteria:
+  - Sección #services existe con título "Servicios" en Bebas Neue
+  - 6 tarjetas de servicios en grid: 1 columna (mobile), 2 (tablet), 3 (desktop)
+  - Cada tarjeta contiene: icono (emoji), título del servicio (h3), descripción breve
+  - Cards con fondo #1A1A1A, borde #333, hover con borde dorado #D4A017
+  - Efecto hover: border-color cambia a #D4A017 + box-shadow elevado
+  - Iconos: emojis nativos (sin dependencias) representando cada servicio
+  - Texto de servicio en Montserrat
+  - Títulos de servicio en Montserrat semibold
+  - Padding interno consistente en cards (--space-lg)
+  - Border-radius: 8px en cards
+
+architecture_constraints:
+  - Sin JavaScript para esta sección (solo HTML + CSS)
+  - Datos de servicios hardcodeados en HTML (estáticos)
+  - Emojis nativos como iconos (sin SVG ni icon fonts)
+
+design_constraints:
+  - Card bg: #1A1A1A, border: 1px solid #333, border-radius: 8px
+  - Card hover: border-color #D4A017, box-shadow: 0 4px 16px rgba(212,160,23,0.2)
+  - Icono: tamaño 2.5rem (40px), margen inferior
+  - Título servicio: color #F5F5F5, Montserrat 600
+  - Descripción: color #AAAAAA, Montserrat 400, line-height 1.6
+  - Grid gap: --space-lg (24px)

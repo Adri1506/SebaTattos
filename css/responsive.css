@@ -1,0 +1,59 @@
+/* ===== RESPONSIVE.CSS — Refinamientos finales ===== */
+/* Mobile-first — estilos base ya están en layout.css y components.css */
+/* Este archivo contiene ajustes específicos y overrides */
+
+/* Tablet (768px+) */
+@media (min-width: 768px) {
+  .section {
+    padding-top: var(--space-3xl);
+    padding-bottom: var(--space-3xl);
+  }
+
+  h1 { font-size: 3rem; }
+  h2 { font-size: 2.5rem; }
+  h3 { font-size: 1.75rem; }
+}
+
+/* Desktop (1024px+) */
+@media (min-width: 1024px) {
+  .section {
+    padding-top: var(--space-4xl);
+    padding-bottom: var(--space-4xl);
+  }
+
+  h1 { font-size: 4rem; }
+  h2 { font-size: 3rem; }
+
+  .container {
+    padding-left: var(--space-xl);
+    padding-right: var(--space-xl);
+  }
+}
+
+/* Large Desktop (1440px+) */
+@media (min-width: 1440px) {
+  h1 { font-size: 5rem; }
+  .section__title { font-size: 3.5rem; }
+}
+
+/* Ajustes mobile específicos */
+@media (max-width: 767px) {
+  .hero-logo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .hero h1 {
+    font-size: 2.8rem;
+  }
+
+  .price-amount {
+    font-size: 2rem;
+  }
+}
+
+/* Prevenir overflow horizontal */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}

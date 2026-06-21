@@ -1,0 +1,43 @@
+task_id: T01
+feature_ref: FEAT-INFRA
+scenario_ref:
+  - Crear estructura de directorios y archivos base del proyecto
+title: "Estructura Base HTML + CSS Global"
+objective: "Crear el esqueleto HTML del sitio y los archivos CSS fundamentales (reset, variables, layout) que servirán como base para todas las secciones posteriores."
+
+inputs:
+  - architecture_document.md (estructura de directorios, naming, stack)
+  - design_document.md (paleta de colores, tipografía, spacing, breakpoints)
+
+outputs:
+  - index.html (esqueleto con <head>, <body> vacío con <header>, 8 <section>, <footer>)
+  - css/reset.css (normalización de estilos)
+  - css/variables.css (design tokens: colores, fuentes, spacing, breakpoints, sombras, transiciones)
+  - css/layout.css (estructura general, clases utilitarias, container, grid base, section padding)
+  - assets/favicon/ (directorio para favicon)
+
+acceptance_criteria:
+  - index.html existe con estructura semántica completa (header, 8 sections con sus IDs, footer)
+  - Todas las secciones tienen id correcto: hero, about, proceso, portfolio, services, precios, contact, footer
+  - CSS reset aplica box-sizing border-box, margin/padding reset, font-size 100%
+  - variables.css contiene todos los tokens de color (#0D0D0D, #D4A017, #F5F5F5, etc.)
+  - variables.css contiene tokens tipográficos (Bebas Neue, Montserrat, Dancing Script)
+  - variables.css contiene spacing scale (xs a 4xl), radii, shadows, transitions, breakpoints
+  - layout.css define clases .container, .section, .section__title, .grid-base
+  - layout.css incluye estilos base para body (font-family Montserrat, bg #0D0D0D, color #F5F5F5)
+  - directorio assets/favicon/ creado
+  - No hay errores ni archivos faltantes
+  - Arquitectura de directorios respeta máximo 3 niveles de profundidad
+
+architecture_constraints:
+  - Sin frameworks ni librerías externas (solo Google Fonts vía <link>)
+  - CSS vanilla con variables nativas únicamente
+  - HTML semántico (header, nav, section, footer)
+  - Respetar estructura de directorios: css/, js/, imagenes/, assets/icons/, assets/favicon/
+  - index.html en raíz del proyecto
+
+design_constraints:
+  - Usar exactamente los valores de color del design system (#0D0D0D, #D4A017, etc.)
+  - Bebas Neue para títulos seccionales, Montserrat para cuerpo, Dancing Script para marca
+  - Espaciado base de secciones: padding vertical --space-2xl (48px) mobile, --space-3xl (64px) desktop
+  - Google Fonts cargadas con preconnect (3 familias: Bebas Neue, Montserrat, Dancing Script)

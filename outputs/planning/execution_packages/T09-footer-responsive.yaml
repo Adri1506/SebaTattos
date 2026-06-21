@@ -1,0 +1,47 @@
+task_id: T09
+feature_ref: FEAT-FOOTER, FEAT-RESPONSIVE
+scenario_ref:
+  - Footer con enlaces WhatsApp y email
+  - Refinamientos responsive finales
+title: "Footer + Refinamientos Responsive"
+objective: "Implementar el footer con enlaces de contacto (WhatsApp, email), copyright, y realizar los refinamientos responsive finales en todo el sitio."
+
+inputs:
+  - T08 (contacto completado)
+  - architecture_document.md (footer specs, responsive specs)
+  - design_document.md (footer design, breakpoints, responsive behavior)
+
+outputs:
+  - index.html (actualizar <footer> con enlaces y copyright)
+  - css/responsive.css (media queries finales, ajustes de refinamiento)
+  - css/components.css (footer styles)
+
+acceptance_criteria:
+  - Footer existe con copyright: "© 2026 SebaTatto — Todos los derechos reservados"
+  - Enlaces sociales en footer: solo WhatsApp y email (sin Instagram)
+  - Marca "SebaTatto" en Dancing Script en el footer
+  - Enlace WhatsApp: wa.me/56971930350
+  - Enlace email: mailto:adriaticosama@gmail.com
+  - Footer centrado, fondo #0D0D0D o #1A1A1A
+  - responsive.css contiene media queries completos para todos los breakpoints
+  - Verificar comportamiento responsive en 320px, 768px, 1024px, 1440px
+  - Todos los grids funcionan correctamente en todos los breakpoints
+  - Navbar hamburger menu funciona correctamente en mobile
+  - Calculadora 3 columnas en desktop, stacked en mobile
+  - Contacto 2 columnas en desktop, stacked en mobile
+  - Lightbox se adapta al viewport (95% ancho mobile, 80% tablet, natural desktop)
+  - Tipografía se ajusta según breakpoints (h1: 2.5rem→4rem, body: 1rem→1.125rem)
+  - Touch targets >= 44px en mobile
+  - Sin desbordamiento horizontal (overflow-x) en ningún viewport
+
+architecture_constraints:
+  - responsive.css es el último archivo CSS cargado (sobreescribe estilos anteriores)
+  - Solo media queries min-width (mobile-first)
+  - Sin JavaScript para footer
+
+design_constraints:
+  - Footer bg: #1A1A1A o #0D0D0D
+  - Texto copyright: #666666 (--color-text-muted), Montserrat
+  - Enlaces sociales: iconos + texto, hover color #D4A017
+  - Espaciado footer: padding --space-xl
+  - Dancing Script para "SebaTatto" en footer

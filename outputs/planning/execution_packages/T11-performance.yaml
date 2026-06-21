@@ -1,0 +1,46 @@
+task_id: T11
+feature_ref: FEAT-PERFORMANCE
+scenario_ref:
+  - Optimización de imágenes a WebP
+  - Lazy loading, preconnect, preload de fuentes
+  - Performance audit
+title: "Optimización de Imágenes y Performance"
+objective: "Optimizar todas las imágenes del sitio (conversión a WebP, redimensionado), implementar precarga de recursos críticos (fuentes, hero banner), verificar lazy loading, y realizar auditoría de performance."
+
+inputs:
+  - T10 (SEO completado)
+  - imagenes/ (todos los assets visuales existentes)
+  - architecture_document.md (optimization strategy)
+  - design_document.md (image sizes, critical resources)
+
+outputs:
+  - imagenes/*.webp (versiones WebP de todas las imágenes)
+  - index.html (actualizar con <picture>/<source> para WebP, preconnect, preload, fetchpriority)
+  - Assets optimizados y comprimidos
+
+acceptance_criteria:
+  - Todas las imágenes del sitio convertidas a WebP (manteniendo originales como fallback)
+  - Logo.png redimensionado de 1254×1254 a ~200×200 para uso en hero
+  - Banner.png (1983×793) optimizado con calidad 80%
+  - Imágenes portfolio (foto*.jpeg/png) comprimidas a WebP lossy calidad 80%
+  - Imágenes tatuador comprimidas a WebP lossy calidad 80%
+  - Hero banner con fetchpriority="high" y loading="eager"
+  - Portfolio y tatuador imágenes con loading="lazy"
+  - Google Fonts con preconnect a fonts.googleapis.com y fonts.gstatic.com
+  - Google Fonts con preload para evitar FOIT
+  - CSS principal sin bloqueo de renderizado (inline crítico o carga async)
+  - Sin imágenes mayores a 300KB después de optimización
+  - Verificar que todas las rutas a imágenes .webp tengan fallback .jpg/.png
+  - Performance audit (Lighthouse) muestra resultado aceptable
+
+architecture_constraints:
+  - Usar <picture> con <source> para WebP y <img> como fallback
+  - No usar build tools ni scripts de automatización (optimización manual con Squoosh u otra herramienta)
+  - Mantener archivos originales como respaldo
+  - Preconnect links en <head> antes de cualquier recurso de fuente
+
+design_constraints:
+  - Logo hero: ~200×200px, circular con border-radius 50%
+  - Banner hero: mantener resolución original (1983×793) para cover
+  - Portfolio thumbnails: ~400×400px crop cuadrado
+  - About/Proceso thumbnails: ~400×400px con object-fit cover

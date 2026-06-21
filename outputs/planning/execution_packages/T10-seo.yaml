@@ -1,0 +1,43 @@
+task_id: T10
+feature_ref: FEAT-SEO
+scenario_ref:
+  - Meta tags, Open Graph, JSON-LD, sitemap.xml, robots.txt
+title: "SEO — Meta Tags, Open Graph y JSON-LD"
+objective: "Implementar meta tags SEO, Open Graph para redes sociales, datos estructurados JSON-LD (LocalBusiness), sitemap.xml y robots.txt."
+
+inputs:
+  - T09 (footer + responsive completados)
+  - architecture_document.md (SEO specs, JSON-LD structure)
+  - design_document.md (meta description, OG tags)
+
+outputs:
+  - index.html (actualizar <head> con meta tags, OG tags, JSON-LD, canonical)
+  - sitemap.xml (archivo en raíz)
+  - robots.txt (archivo en raíz)
+
+acceptance_criteria:
+  - Title tag: "SebaTatto — Tatuajes a Domicilio | Chile"
+  - Meta description: texto descriptivo optimizado SEO (max 160 caracteres)
+  - Meta keywords: relevantes (tatuajes a domicilio, tatuador, etc.)
+  - Meta author: "SebaTatto"
+  - Meta viewport: width=device-width, initial-scale=1.0
+  - Meta charset: UTF-8
+  - Open Graph tags: og:title, og:description, og:image (banner.png), og:type (website), og:url
+  - Open Graph image: ruta absoluta a banner.png
+  - Twitter Card tags: twitter:card, twitter:title, twitter:description, twitter:image
+  - JSON-LD estructurado con @type: LocalBusiness
+  - JSON-LD incluye: name, description, image, url, telephone, priceRange, address
+  - URL canónica especificada
+  - sitemap.xml con URL principal y fecha de modificación
+  - robots.txt permite rastreo completo (Allow: /)
+  - Encabezados jerárquicos: un solo h1, h2 para títulos de sección, h3 para subtítulos
+  - Alt text descriptivo en todas las imágenes del sitio
+  - Atributos aria-label en elementos interactivos (botones, links)
+
+architecture_constraints:
+  - JSON-LD inline en <head> dentro de <script type="application/ld+json">
+  - Meta tags en <head> antes del cierre </head>
+  - sitemap.xml y robots.txt en raíz del proyecto (mismo nivel que index.html)
+
+design_constraints:
+  - Ninguno (solo afecta metadatos, no diseño visual)

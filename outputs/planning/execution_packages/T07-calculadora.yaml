@@ -1,0 +1,51 @@
+task_id: T07
+feature_ref: FEAT-CALCULADORA
+scenario_ref:
+  - Calculadora interactiva de precios con silueta, slider, toggle y precio en vivo
+title: "Calculadora de Precios Interactiva"
+objective: "Implementar la calculadora de precios con silueta humana cliqueable (HTML imagemap con 12 zonas), slider de tamaño (1-30cm), toggle color (ByN/Color), tabla de referencia y precio en vivo."
+
+inputs:
+  - T06 (servicios completados)
+  - imagenes/silueta.png (322×726)
+  - architecture_document.md (pricing logic: size tiers, zone factors, color multiplier)
+  - design_document.md (calculator layout, 3 columnas desktop)
+
+outputs:
+  - index.html (actualizar <section#precios> con calculadora completa)
+  - css/components.css (calculator styles: silueta container, controles, precio display, tabla)
+  - css/layout.css (calculator grid: 3 columnas desktop)
+  - js/calculator.js (lógica de pricing, imagemap events, slider, toggle, precio en vivo)
+
+acceptance_criteria:
+  - Sección #precios existe con título "Cotizá tu Precio" en Bebas Neue
+  - Layout 3 columnas en desktop: (1) tabla referencia | (2) silueta | (3) controles
+  - En mobile: stacked (tabla → silueta → controles)
+  - Silueta.png (322×726) con HTML <map> y 12 <area shape="rect">
+  - 12 zonas cliqueables: cabeza, cuello, pecho, vientre, brazo-izq, brazo-der, mano-izq, mano-der, pierna-izq, pierna-der, pie-izq, pie-der
+  - Al hacer clic en una zona, se resalta visualmente (border o glow) y se muestra el label
+  - Slider tamaño: rango 1-30cm, muestra valor actual
+  - Toggle color: ByN (default) / Color (+30%)
+  - Precio en vivo se actualiza automáticamente al cambiar cualquier parámetro
+  - Lógica de pricing: size tier (mini ≤5 $35K, pequeño 6-10 $70K, mediano 11-15 $120K, grande 16-25 $200K, mega >25 a cotizar) × zone factor (1.0-2.0) × color multiplier (1.0 o 1.3)
+  - Si mega (>25cm): mostrar "A cotizar" en lugar de precio
+  - Tabla de referencia rápida con los 5 tiers de tamaño y precios base
+  - Botón CTA "Agenda tu Cita" que abre WhatsApp con el presupuesto en mensaje predefinido
+  - No hay errores de consola JS
+
+architecture_constraints:
+  - calculator.js independiente, modular
+  - Datos de pricing (tiers, zones, factors) como constantes en calculator.js
+  - HTML imagemap con <map name="silueta-map"> y <area shape="rect">
+  - Coordenadas de áreas rectangulares para cada zona (calibradas para silueta.png 322×726)
+  - Sin librerías externas para slider (input range nativo)
+  - Precio formateado en pesos chilenos (CLP)
+
+design_constraints:
+  - Silueta container: ancho máximo 322px, centrado
+  - Zona activa/selected: outline o box-shadow dorado (#D4A017)
+  - Slider: estilo custom (fondo oscuro, thumb dorado)
+  - Toggle: botón tipo switch con animación
+  - Precio display: color #D4A017, Bebas Neue, tamaño grande (2rem+)
+  - Tabla referencia: estilo minimalista, bordes #333, hover en filas
+  - Controles: padding consistente, labels Montserrat #F5F5F5

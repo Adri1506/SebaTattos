@@ -1,0 +1,40 @@
+task_id: T03
+feature_ref: FEAT-ABOUT
+scenario_ref:
+  - Sección Sobre Mí con collage de fotos, biografía y banner destacado
+title: "Sección Sobre Mí (About)"
+objective: "Implementar la sección Sobre Mí con un collage de 6 fotos del tatuador, texto biográfico, y un banner destacado al final con overlay caption."
+
+inputs:
+  - T02 (navbar + hero completados)
+  - imagenes/Tatuador/ (seleccionar 6 fotos para collage)
+  - imagenes/Tatuador/banner.png (banner destacado al final)
+  - architecture_document.md (estructura about)
+
+outputs:
+  - index.html (actualizar <section#about> con collage, biografía, banner destacado)
+  - css/components.css (about grid, collage styles, banner destacado overlay)
+  - css/layout.css (about layout: grid/flex)
+
+acceptance_criteria:
+  - Sección #about existe con título "Sobre Mí" en Bebas Neue
+  - Collage de 6 fotos del tatuador en grid 2 columnas (mobile), 3 columnas (tablet/desktop)
+  - Las 6 fotos se seleccionan de imagenes/Tatuador/ (tatuador.png, tatuador2.png, tatuador3.png, tatuador4.png, tatuador5.png, tatuador6.png)
+  - Texto biográfico del tatuador en Montserrat, color #F5F5F5
+  - Banner destacado al final: banner.png como fondo con overlay oscuro y caption
+  - Caption del banner destacado: texto motivacional/frase del tatuador
+  - Imágenes con loading lazy
+  - Alt text descriptivo en todas las imágenes
+  - Diseño responsivo: stacked en mobile, lado a lado en desktop (fotos | biografía)
+  - Fotos con border-radius: 8px, object-fit: cover
+
+architecture_constraints:
+  - Grid CSS para collage de fotos
+  - Banner final usa background-image con overlay, no <img> tag
+  - Lazy loading nativo en imágenes del collage
+
+design_constraints:
+  - Collage fotos: tamaño uniforme, border-radius 8px
+  - Banner destacado: brightness(0.5) overlay + caption centrado
+  - Espaciado entre fotos: --space-md (16px)
+  - Título sección: Bebas Neue, color #D4A017, letter-spacing 2px
