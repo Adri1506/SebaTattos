@@ -63,7 +63,7 @@
       `Teléfono: ${phone}\n\n` +
       `Mensaje:\n${message}`
     );
-    return `mailto:adriaticosama@gmail.com?subject=${subject}&body=${body}`;
+    return `mailto:Sebastian.cornejo.maya@gmail.com?subject=${subject}&body=${body}`;
   }
 
   async function sendToFormspree() {
@@ -122,7 +122,7 @@
       resetForm();
     } catch (err) {
       showFeedback(
-        '❌ Hubo un error al enviar. Escribime directamente a adriaticosama@gmail.com',
+        '❌ Hubo un error al enviar. Escribime directamente a Sebastian.cornejo.maya@gmail.com',
         'error'
       );
     } finally {
